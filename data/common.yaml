@@ -1,0 +1,24 @@
+## agent
+puppet::agent::status: 'running'
+puppet::agent::enabled: true
+puppet::agent::config:
+  agent:
+    certname: "%{trusted.certname}"
+    server: 'puppetserver.turbo.local'
+  main:
+    digest_algorithm: 'sha256'
+  user:
+    bucketdir: '$clientbucketdir'
+
+## server
+puppet::server::status: 'running'
+puppet::server::enabled: true
+puppet::server::config:
+  main:
+    digest_algorithm: 'sha256'
+  master:
+    autosign: '$confdir/autosign.conf'
+    certname: "%{trusted.certname}"
+    environment_timeout: 'unlimited'
+
+puppet::server::jvm_heap: '512m'
